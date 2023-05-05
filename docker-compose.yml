@@ -1,0 +1,53 @@
+version: "3.4"
+services:
+  ip:
+    container_name: python-test_ip
+    image: python_test
+    build:
+      context: .
+    command: "ip"
+    environment:
+      HOSTNAME: Testhost
+    network_mode: host
+    volumes:
+      - .:/opt/test
+  ping:
+    container_name: python-test_ping
+    image: python_test
+    build:
+      context: .
+    command: "ping"
+    network_mode: host
+  net_inspect:
+    container_name: python-test_net_inspect
+    image: python_test
+    build:
+      context: .
+    command: "net_inspect"
+    environment:
+      HOSTNAME: Testhost
+    network_mode: none
+    volumes:
+      - .:/opt/test
+  serv_one:
+    container_name: python-test_one
+    image: python_test
+    build:
+      context: .
+    ports:
+      - "8001:8000"
+    command: "one"
+    environment:
+      PYTHONUNBUFFERED: 1
+    volumes:
+      - .:/opt/test
+  serv_two:
+    container_name: python-test_two
+    image: python_test
+    build:
+      context: .
+    ports:
+      - "8002:8000"
+    command: "two"
+    environment:
+      PYTHONUNBUFFERED: 1
